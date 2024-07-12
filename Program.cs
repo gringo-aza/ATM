@@ -31,11 +31,10 @@ namespace ATM
                         bankService.WithdrawMoney(currentBalance: balance);
                         break;
                     case "4":
-                        Print("Thank you for using the ATM. Goodbye!");
-                        Console.WriteLine("Thank you for using the ATM. Goodbye!");
+                        logger.Info("Thank you for using the ATM. Goodbye!");
                         break;
                     default:
-                        Console.WriteLine("Invalid option. Please try again.");
+                        logger.Info("Invalid option. Please try again.");
                         break;
 
                 }
@@ -46,7 +45,10 @@ namespace ATM
 
         private static string ShowMenu()
         {
+            Print logger = new Print();
+
             Console.Clear();
+            logger.Info("Welcome to the ATM");
             Console.WriteLine("Welcome to the ATM");
             Console.WriteLine("1. Check Balance");
             Console.WriteLine("2. Deposit Money");
