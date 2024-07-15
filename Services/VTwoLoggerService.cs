@@ -8,6 +8,7 @@ namespace ATM.Services
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"second version {Text}");
+            Console.ResetColor();
         }
 
     }
