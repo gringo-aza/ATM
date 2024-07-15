@@ -6,15 +6,27 @@ using System.Threading.Tasks;
 
 namespace ATM.Services
 {
+
     internal class ATMService
     {
 
+        private ILoggerService loggerService;
+
+        private ILoggerService loggerServiceError;
+
+
+        public ATMService()
+        {
+            this.loggerService = new VTwoLoggerService();
+            this.loggerServiceError = new VThreeLoggerService();
+
+
+        }
 
         internal void CheckBalance(decimal currentBalance)
         {
-            Console.WriteLine($"Your current balance is: {currentBalance}");
+            this.loggerService.Info($"Your current balance is: {currentBalance}");
             Console.ReadKey();
-
         }
 
 
@@ -25,13 +37,13 @@ namespace ATM.Services
             if (depositAmount > 0)
             {
                 currentBalance += depositAmount;
-                Console.WriteLine($"You have successfully deposited {depositAmount}. Your new balance is {currentBalance}.");
+                this.loggerService.Info($"You have successfully deposited {depositAmount}. Your new balance is {currentBalance}.");
                 Console.ReadKey();
 
             }
             else
             {
-                Console.WriteLine("Invalid deposit amount.");
+                this.loggerServiceError.Info("Invalid deposit amount.");
                 Console.ReadKey();
             }
 
@@ -44,19 +56,19 @@ namespace ATM.Services
             if ((withdrawAmount > 0) && (withdrawAmount <= currentBalance))
             {
                 currentBalance -= withdrawAmount;
-                Console.WriteLine($"You have successfully withdrawn {withdrawAmount}. Your new balance is {currentBalance}.");
+                this.loggerService.Info($"You have successfully withdrawn {withdrawAmount}. Your new balance is {currentBalance}.");
                 Console.ReadKey();
 
             }
             else if (withdrawAmount > currentBalance)
             {
-                Console.WriteLine("Insufficient funds...");
+                this.loggerService.Info("Insufficient funds...");
                 Console.ReadKey();
 
             }
             else
             {
-                Console.WriteLine("Invalid withdrawal amount...");
+                this.loggerService.Info("Invalid withdrawal amount...");
                 Console.ReadKey();
 
             }
